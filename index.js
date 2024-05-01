@@ -4,13 +4,12 @@ const mongoose = require('mongoose');
 mongoose.connect("mongodb+srv://isaquedatadev1:datadev03@bankofdata.mavbvbx.mongodb.net/api-users").then(() => {
     console.log("data")
 });
-const controllers = require("./controllers/users")
+const routes = require("./routes/routes")
 
 
 app.use(express.json());
 
-app.get("/users",controllers.usersFinder);
-app.post("/addUsers",controllers.addUsers)
+app.use("/",routes);
 
 
 

@@ -5,8 +5,7 @@ const mongoose = require('mongoose');
 const User = require("../models/Users");
 
 
-
-const usersFinder = async (req,res) => {
+const usersFinder = async (req, res) => {
     const users = await User.find();
     res.json({ users });
 }
@@ -14,6 +13,7 @@ const addUsers = async (req, res) => {
     const name = req.body.name
     const email = req.body.email;
     const message = req.body.message;
+
     try {
         if (name === '' || email === "" || message === '') {
             res.json({ error: "Preencha todos os campos" })
@@ -29,8 +29,13 @@ const addUsers = async (req, res) => {
 
         }
     } catch (error) {
-        res.json({error:error})
+        res.json({ error: error })
     }
 }
+const updateUser = async (req, res) => {
+    const emailS = req.params.emailS;
+    const update = await User.findOneAndUpdate({ email: emailS }, { name: req.body.name, email: req.body.email,message:req.body.message}, { new: true })
+    res.json({ update })
+}
 
-module.exports = {usersFinder,addUsers};
+module.exports = { usersFinder, addUsers, updateUser };
