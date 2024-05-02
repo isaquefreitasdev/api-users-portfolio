@@ -3,8 +3,9 @@ const {Schema} = mongoose;
 
 
 const User = new Schema({
-    nome:{type: String,unique:false},
-    email:{type:String,unique:true}
+    name:{type: String,unique:false},
+    email:{type:String,unique:true},
+    message:{type:String,unique:false}
 })
 
 const modelUser = mongoose.model("user",User);

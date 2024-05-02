@@ -5,16 +5,18 @@ mongoose.connect("mongodb+srv://isaquedatadev1:datadev03@bankofdata.mavbvbx.mong
     console.log("data")
 });
 const routes = require("./routes/routes")
+const cors = require("cors");
 
-
-app.use(express.json());
+app.use(cors())
 app.use(express.urlencoded())
+app.use(express.json());
+
 
 app.use("/",routes);
 
 
 
 
-app.listen(3000, () => {
+app.listen(3001, () => {
     console.log("Lendo")
 })
