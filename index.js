@@ -8,6 +8,7 @@ const routes = require("./routes/routes")
 
 
 app.use(express.json());
+app.use(express.urlencoded())
 
 app.use("/",routes);
 

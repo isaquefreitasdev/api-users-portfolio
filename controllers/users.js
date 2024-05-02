@@ -33,9 +33,15 @@ const addUsers = async (req, res) => {
     }
 }
 const updateUser = async (req, res) => {
-    const emailS = req.params.emailS;
-    const update = await User.findOneAndUpdate({ email: emailS }, { name: req.body.name, email: req.body.email,message:req.body.message}, { new: true })
-    res.json({ update })
+    const update = await User.findOneAndUpdate({ email: req.params.email }, { name: req.body.name, email: req.body.email, message: req.body.message }, { new: true })
+    if (update) {
+        res.status(201).json({ update })
+    } else {
+        res.status(404).json({ error: "Usuário não encontrado!!" })
+    }
 }
-
-module.exports = { usersFinder, addUsers, updateUser };
+const deleteUser = async (req, res) => {
+    const del = await User.findOneAndDelete({ email: req.params.email });
+    res.json({msg:"User deletado"})
+}
+module.exports = { usersFinder, addUsers, updateUser,deleteUser };

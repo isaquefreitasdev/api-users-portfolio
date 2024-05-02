@@ -6,8 +6,8 @@ const router = express.Router();
 
 router.get("/users",controllers.usersFinder);
 router.post("/addUsers",controllers.addUsers);
-router.put("/updateUsers/:emailS",controllers.updateUser)
-
+router.put("/updateUsers/:email",controllers.updateUser)
+router.delete("/delete/:email",controllers.deleteUser)
 
 
 
