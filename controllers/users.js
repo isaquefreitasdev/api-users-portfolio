@@ -10,7 +10,7 @@ const usersFinder = async (req, res) => {
     const users = await User.find();
     res.json({ users });
 }
-const addUsers  = async (req, res) => {
+const addUsers = async (req, res) => {
     const name = req.body.name
     const email = req.body.email;
     const password = req.body.password;
@@ -30,17 +30,25 @@ const addUsers  = async (req, res) => {
 
         }
     } catch (error) {
-        res.status(400).json(error)
+        if (error.errors && error.errors.email && error.errors.email.message) {
+            // Se houver uma mensagem de erro para o campo de email, retorne apenas ela
+            return res.status(400).json({ error: error.errors.email.message });
+        }
+        if(error.errors && error.errors.password){
+            return res.status(400).json({error:"Formato inválido"})
+        }
+
+        
     }
 }
 const updateUser = async (req, res) => {
     const update = await User.findOneAndUpdate(
-        { email: req.params.email }, 
-        { 
-            name: req.body.name, 
-            email: req.body.email, 
-            message: req.body.message 
-        }, 
+        { email: req.params.email },
+        {
+            name: req.body.name,
+            email: req.body.email,
+            message: req.body.message
+        },
         { new: true }
     );
 
@@ -53,9 +61,9 @@ const updateUser = async (req, res) => {
 
 const deleteUser = async (req, res) => {
     const del = await User.findOneAndDelete({ email: req.params.email });
-    if(!del){
-        res.status(404).json({res:"Não foi o encontrado o Usuário."})
+    if (!del) {
+        res.status(404).json({ res: "Não foi o encontrado o Usuário." })
     }
-    res.json({msg:"User deletado"})
+    res.json({ msg: "User deletado" })
 }
-module.exports = { usersFinder, addUsers, updateUser,deleteUser };
+module.exports = { usersFinder, addUsers, updateUser, deleteUser };

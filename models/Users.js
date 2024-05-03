@@ -1,27 +1,32 @@
 const mongoose = require("mongoose")
 const { Schema } = mongoose;
-const va = require("validator");
+const validator = require("validator");
 const { default: isEmail } = require("validator/lib/isEmail");
 
-const User = new Schema({
-    name: { type: String, unique: false, required: true },
-    email: {
-        type: String, unique: true,
+const UserSchema = new Schema({
+    name: { 
+        type: String, 
+        required: true 
     },
-    password: { type: String, min: 6, max: 12, required: true },
-    validate: {
-        valiEmail: () => {
-            if (!email.isEmail) {
-                res.json("Formato invalido")
-            
-            }
+    email: {
+        type: String,
+        unique: true,
+        required: true,
+        validate: {
+            validator: function (email) {
+                return validator.isEmail(email);
+            },
 
         }
-
+    },
+    password: {
+        type: String,
+        required: true,
+        minlength: 6,
+        maxlength: 12
     }
-})
+});
 
-const modelUser = mongoose.model("user", User);
+const User = mongoose.model('User', UserSchema);
 
-
-module.exports = modelUser;
+module.exports = User;
