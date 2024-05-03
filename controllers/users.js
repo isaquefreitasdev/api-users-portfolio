@@ -10,11 +10,14 @@ const usersFinder = async (req, res) => {
     const users = await User.find();
     res.json({ users });
 }
-const addUsers = async (req, res) => {
+    const registerUsers = async (req, res) => {
     const name = req.body.name
     const email = req.body.email;
     const password = req.body.password;
-
+    const findEmail =  await User.findOne({email:email})
+    if(findEmail){
+        res.json({error:"Email existente"})
+    }
     try {
         if (name === '' || email === "" || password === '') {
             res.json({ error: "Preencha todos os campos" })
@@ -34,11 +37,11 @@ const addUsers = async (req, res) => {
             // Se houver uma mensagem de erro para o campo de email, retorne apenas ela
             return res.status(400).json({ error: error.errors.email.message });
         }
-        if(error.errors && error.errors.password){
-            return res.status(400).json({error:"Formato inválido"})
+        if (error.errors && error.errors.password && error.errors.password.message) {
+            return res.status(400).json({ error: "Senha no formato inválido" })
         }
 
-        
+
     }
 }
 const updateUser = async (req, res) => {
@@ -66,4 +69,4 @@ const deleteUser = async (req, res) => {
     }
     res.json({ msg: "User deletado" })
 }
-module.exports = { usersFinder, addUsers, updateUser, deleteUser };
+module.exports = { usersFinder, registerUsers, updateUser, deleteUser };
