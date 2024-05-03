@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 
 const User = require("../models/Users");
 const validator = require("validator")
-
+const bcrypt = require("bcryptjs")
 
 const usersFinder = async (req, res) => {
     const users = await User.find();
@@ -28,6 +28,7 @@ const usersFinder = async (req, res) => {
                 password: password,
             });
             let doc = await user.save();
+            user.password = bcrypt.hashSync(password)
             res.json({ user })
 
 
