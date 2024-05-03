@@ -3,7 +3,8 @@
     "cors": "^2.8.5",
     "express": "^4.19.2",
     "mongoose": "^8.3.2",
-    "moongoose": "^0.0.5"
+    "moongoose": "^0.0.5",
+    "validator": "^13.11.0"
   },
   "name": "api_users",
   "version": "1.0.0",

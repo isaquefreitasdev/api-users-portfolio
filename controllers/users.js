@@ -3,6 +3,7 @@ const app = express();
 const mongoose = require('mongoose');
 
 const User = require("../models/Users");
+const validator = require("validator")
 
 
 const usersFinder = async (req, res) => {
@@ -12,16 +13,16 @@ const usersFinder = async (req, res) => {
 const addUsers  = async (req, res) => {
     const name = req.body.name
     const email = req.body.email;
-    const message = req.body.message;
+    const password = req.body.password;
 
     try {
-        if (name === '' || email === "" || message === '') {
+        if (name === '' || email === "" || password === '') {
             res.json({ error: "Preencha todos os campos" })
         } else {
             const user = new User({
                 name: name,
                 email: email,
-                message: message,
+                password: password,
             });
             let doc = await user.save();
             res.json({ user })
@@ -29,7 +30,7 @@ const addUsers  = async (req, res) => {
 
         }
     } catch (error) {
-        res.status(400).json({ error: error })
+        res.status(400).json(error)
     }
 }
 const updateUser = async (req, res) => {
