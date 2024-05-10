@@ -2,7 +2,10 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 const mongoose = require('mongoose');
-mongoose.connect(process.env.MONGO_URL).then(() => {
+mongoose.connect(process.env.MONGO_URL, {
+    useCreateIndex: true,
+    useNewUrlParser: true,
+    useUnifiedTopology: true}).then(() => {
     console.log("data")
 });
 const routes = require("./routes/routes")
