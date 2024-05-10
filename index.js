@@ -1,7 +1,8 @@
+require("dotenv").config();
 const express = require("express");
 const app = express();
 const mongoose = require('mongoose');
-mongoose.connect("mongodb+srv://isaquedatadev1:datadev03@bankofdata.mavbvbx.mongodb.net/api-users").then(() => {
+mongoose.connect(process.env.MONGO_URL).then(() => {
     console.log("data")
 });
 const routes = require("./routes/routes")
