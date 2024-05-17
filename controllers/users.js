@@ -9,7 +9,7 @@ const jwt = require("jsonwebtoken")
 
 const usersFinder = async (req, res) => {
     const users = await User.find();
-    res.json({ users });
+    return res.json({ users });
 }
 const registerUsers = async (req, res) => {
     const { name, email, password } = req.body;
@@ -57,7 +57,7 @@ const updateUser = async (req, res) => {
     if (!update) {
         return res.status(201).json({ update });
     }
-    res.status(404).json({ error: "Usuário não encontrado!!" });
+    return res.status(404).json({ error: "Usuário não encontrado!!" });
 
 }
 
