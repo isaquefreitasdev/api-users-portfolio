@@ -87,7 +87,7 @@ const loginUser = async (req, res) => {
         if (!passwordMatch) {
             return res.status(401).json({ error: "Credenciais incorretas" });
         }
-        const token = jwt.sign({ _id: user._id }, process.env.SECRET)
+        const token = jwt.sign({ _id: user._id }, process.env.SECRET,{expiresIn:30})
         res.header("authorization-token", token)
         return res.status(200).json({ success: "Usuário logado com sucesso!" });
     } catch (error) {
