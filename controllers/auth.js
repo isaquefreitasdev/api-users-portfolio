@@ -1,21 +1,19 @@
-const jwt = require("jsonwebtoken")
+// auth.js
+const jwt = require("jsonwebtoken");
 
-const verifiyLogin = (req,res,next)=>{
-    const token = req.header("authorization-token");
-    if(!token){
-        return res.status(401).json({
-            error:"Logue para acessar"
-        })
+const verifyLogin = (req,res,next)=>{
+    const header = req.header('authorization-token');
+    if(!header){
+        res.status(403).json({msg:"Logue para acessar"})
+    }else{
+        try {
+            const tokenVerified = jwt.verify(header,process.env.SECRET)
+            req.user = tokenVerified
+            next();
+        } catch (error) {
+            res.status(403).json({msg:"Logue novamente"});
+        }
     }
-   try {
-    const veriftoken = jwt.verify(token,process.env.SECRET)
-    req.user = veriftoken
-   } catch (error) {
-    return res.status(401).json({
-        error:"Token Invalido"
-    })
-   }
 }
 
-
-module.exports = {verifiyLogin}
+module.exports = { verifyLogin };
