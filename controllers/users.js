@@ -89,7 +89,7 @@ const loginUser = async (req, res) => {
         }
         const token = jwt.sign({ _id: user._id }, process.env.SECRET,{expiresIn:30})
         res.header("authorization-token", token)
-        return res.status(200).json({ success: "Usuário logado com sucesso!" });
+        return res.status(200).json({ success: "Usuário logado com sucesso!",token});
     } catch (error) {
         console.error("Erro ao fazer login:", error);
         return res.status(500).json({ error: "Erro interno do servidor" });
