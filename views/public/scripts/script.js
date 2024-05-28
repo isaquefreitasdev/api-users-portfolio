@@ -23,9 +23,14 @@ function login(event) {
     body: JSON.stringify(datas)
   }).then(response => response.json()).then(data => {
     
-    console.log(data)
-    localStorage.setItem("token", data.token)
-    window.location.href = "index.html"
+      if(data.error){
+        return alert(data.error)
+      }
+      localStorage.setItem("token", data.token)
+      setTimeout(()=>{
+        window.location.href = "index.html"
+      },3000)
+    
   
       
     
