@@ -2,30 +2,14 @@
 const name = document.getElementById("nome");
 
 
-document.addEventListener("DOMContentLoaded", () => {
-  const token = localStorage.getItem("token")
-  if (!token) {
-    return window.location.href = "login.html"
-  }
-  fetch('http://localhost:3001/users',{
-      method:"GET",
-      headers:{
-        'authorization-token':token
-      }
-    })
-      .then(response => response.json())
-      .then(data => {
-        console.log("logado")
-        
-      })
-      .catch(error => {
-        console.error('Erro ao fazer requisição:', error);
-      });
-});
 
-function login() {
+
+function login(event) {
   const email = document.getElementById("email").value;
   const password = document.getElementById("senha").value;
+  if(!email || !password){
+    return alert("Preencha os campos!");
+  }
   const datas = {
     email: email,
     password: password
@@ -38,11 +22,11 @@ function login() {
     },
     body: JSON.stringify(datas)
   }).then(response => response.json()).then(data => {
+    
     console.log(data)
     localStorage.setItem("token", data.token)
-    setTimeout(()=>{
-      window.location.href = "index.html"
-    },5000)
+    window.location.href = "index.html"
+  
       
     
   }).catch(error => console.log(error))

@@ -25,10 +25,13 @@ const registerUsers = async (req, res) => {
                 error: "Email existente.Logue para acessar"
             })
         }
+        const adminDomain = 'adm.com'; // Substitua pelo domínio específico dos administradores
+        const isAdmin = email.split('@')[1] === adminDomain;
         const user = new User({
             name: name,
             email: email,
-            password: bcrypt.hashSync(password)
+            password: bcrypt.hashSync(password),
+            admin:isAdmin
         })
 
         const doc = await user.save()
@@ -88,12 +91,14 @@ const loginUser = async (req, res) => {
             return res.status(401).json({ error: "Credenciais incorretas" });
         }
         const token = jwt.sign({ _id: user._id }, process.env.SECRET,{expiresIn:30})
+        
         res.header("authorization-token", token)
-        return res.status(200).json({ success: "Usuário logado com sucesso!",token});
+        return res.status(200).json({ success: "Usuário logado com sucesso!",token,tokenIsvalid:true});
     } catch (error) {
         console.error("Erro ao fazer login:", error);
         return res.status(500).json({ error: "Erro interno do servidor" });
     }
 }
+
 
 module.exports = { loginUser, registerUsers, updateUser, deleteUser, usersFinder }
