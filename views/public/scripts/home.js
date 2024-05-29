@@ -12,8 +12,9 @@ document.addEventListener("DOMContentLoaded", () => {
   })
     .then(response => response.json())
     .then(data => {
-    
-     console.log(data.users[0])
+      const user = data.users;
+      document.getElementById("nome").textContent = user[0].name
+      document.getElementById("email").textContent = user[0].email;
 
       
         if (data.error == "jwt expired") {
