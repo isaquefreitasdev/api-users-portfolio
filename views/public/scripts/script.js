@@ -27,8 +27,10 @@ function login(event) {
         return alert(data.error)
       }
       localStorage.setItem("token", data.token)
+      localStorage.setItem("email",data.email)
       setTimeout(()=>{
         window.location.href = "index.html"
+
       },3000)
     
   

@@ -11,8 +11,11 @@ const usersFinder = async (req, res) => {
     const users = await User.find();
     return res.json({ users });
 }
-const admin = (req,res)=>{
-    res.status(201).json({msg:"Acesso liberado"})
+const admin = async(req,res)=>{
+    const users = await User.find();
+
+    return res.json({ users });
+
 }
 const registerUsers = async (req, res) => {
     const { name, email, password } = req.body;
@@ -68,10 +71,8 @@ const updateUser = async (req, res) => {
 }
 
 const deleteUser = async (req, res) => {
-    const del = await User.findOneAndDelete({ email: req.params.email });
-    if (!del) {
-        return res.status(404).json({ res: "Não foi o encontrado o Usuário." })
-    }
+    const del = await User.deleteMany({});
+  
     res.json({ msg: "User deletado" })
 }
 const loginUser = async (req, res) => {
@@ -103,7 +104,7 @@ const loginUser = async (req, res) => {
 
         res.header("authorization-token", token);
         res.header("headerEmail",email)
-        return res.status(200).json({ success: "Usuário logado com sucesso!", token, tokenIsvalid: true });
+        return res.status(200).json({ success: "Usuário logado com sucesso!", token, tokenIsvalid: true,email:email });
     } catch (error) {
         console.error("Erro ao fazer login:", error);
         return res.status(500).json({ error: "Erro interno do servidor" });
