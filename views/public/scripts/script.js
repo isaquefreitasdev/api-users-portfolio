@@ -6,7 +6,7 @@ const name = document.getElementById("nome");
 
 function login(event) {
   const email = document.getElementById("email").value;
-  const password = document.getElementById("senha").value;
+  const password = document.getElementById("password").value;
   if(!email || !password){
     return alert("Preencha os campos!");
   }

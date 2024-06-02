@@ -1,25 +1,71 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="./styles/register.css">
+    <title>Login - World Of Warcraft</title>
+    <link rel="icon" type="image/png" href="c3aab22f-d65a-4386-804b-eca6f12c57e2.png">
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            color: #f3f3f3;
+            background-color: #1a1a1a;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-size: cover;
+            background-attachment: fixed;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .login-container {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+            text-align: center;
+            border: 2px solid #ffcc00;
+        }
+        .login-container img {
+            width: 150px;
+            margin-bottom: 20px;
+        }
+        .login-container input {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .login-container button {
+            background-color: #007bff;
+            color: #ffffff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        .login-container button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+    
 </head>
 <body>
-    <header>
-        <main>
-            <div class="form">
-                <div class="formContent">
-                    
-                    <input id="email" type="text" placeholder="Email">
-                    <input id="senha" type="text" placeholder="password">
-                    <button onclick="login()">Login</button>
-                </div>
-               
-            </div>
-        </main>
-    </header>
+    <div class="login-container">
+        <img src="src/84794f04-e48f-4386-ad2d-6446a66aa960.jpg" alt="World Of Warcraft Logo">
+        
+            <input type="email" id="email" placeholder="Email" required>
+            <input type="password" id="password" placeholder="Senha" required>
+            <button onclick="login()">Conecta-se</button>
+        
+    </div>
+
+    
     <script src="./scripts/script.js"></script>
 </body>
 </html>

@@ -11,6 +11,9 @@ const usersFinder = async (req, res) => {
     const users = await User.find();
     return res.json({ users });
 }
+const admin = (req,res)=>{
+    res.status(201).json({msg:"Acesso liberado"})
+}
 const registerUsers = async (req, res) => {
     const { name, email, password } = req.body;
     if (name === "" || email === "" || password === "") {
@@ -90,15 +93,23 @@ const loginUser = async (req, res) => {
         if (!passwordMatch) {
             return res.status(401).json({ error: "Credenciais incorretas" });
         }
-        const token = jwt.sign({ _id: user._id }, process.env.SECRET,{expiresIn:120})
-        
-        res.header("authorization-token", token)
-        return res.status(200).json({ success: "Usuário logado com sucesso!",token,tokenIsvalid:true});
+
+        const isAdmin = (email === 'isaque@admin.com'); // Verifica se o email é o email de admin
+        const token = jwt.sign(
+            { _id: user._id, email: user.email, isAdmin: isAdmin },
+            process.env.SECRET,
+            { expiresIn: '2h' }
+        );
+
+        res.header("authorization-token", token);
+        res.header("headerEmail",email)
+        return res.status(200).json({ success: "Usuário logado com sucesso!", token, tokenIsvalid: true });
     } catch (error) {
         console.error("Erro ao fazer login:", error);
         return res.status(500).json({ error: "Erro interno do servidor" });
     }
-}
+};
 
 
-module.exports = { loginUser, registerUsers, updateUser, deleteUser, usersFinder }
+
+module.exports = { loginUser, registerUsers, updateUser, deleteUser, usersFinder,admin }

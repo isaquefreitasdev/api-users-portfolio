@@ -2,7 +2,7 @@
 function register(event) {
     const name = document.getElementById("nome").value;
     const email = document.getElementById("email").value;
-    const password = document.getElementById("senha").value;
+    const password = document.getElementById("password").value;
     if (!email || !password) {
         return alert("Preencha os campos!");
     }
@@ -20,10 +20,14 @@ function register(event) {
         body: JSON.stringify(datas)
     }).then(response => response.json()).then(data => {
         if(data.error === "Email existente.Logue para acessar"){
-            window.location.href = "login.html"
+            alert(data.error)
+            setTimeout(()=>{
+                window.location.href ="login.html"
+            },2000)
         }
         setTimeout(()=>{
-            window.location.href = "login.html"
+            console.log(data)
+            window.location.href ="login.html"
         },3000)
         
 
