@@ -54,11 +54,9 @@ const registerUsers = async (req, res) => {
 }
 const updateUser = async (req, res) => {
     const update = await User.findOneAndUpdate(
-        { email: req.params.email },
+        { _id: req.params.id },
         {
-            name: req.body.name,
-            email: req.body.email,
-            message: req.body.message
+            assinatura:req.body.assinatura
         },
         { new: true }
     );
@@ -71,8 +69,10 @@ const updateUser = async (req, res) => {
 }
 
 const deleteUser = async (req, res) => {
-    const del = await User.deleteMany({});
-  
+    const del = await User.findOneAndDelete({ _id: req.params.id });
+    if (!del) {
+        return res.status(404).json({ res: "Não foi o encontrado o Usuário." })
+    }
     res.json({ msg: "User deletado" })
 }
 const loginUser = async (req, res) => {

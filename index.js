@@ -9,8 +9,8 @@ const routes = require("./routes/routes")
 const cors = require("cors");
 
 
-
-app.use("/",express.json(),cors(),routes);
+app.use(cors())
+app.use("/",express.json(),routes);
 
 
 
