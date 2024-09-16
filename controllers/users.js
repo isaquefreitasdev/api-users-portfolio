@@ -1,129 +1,121 @@
-require("dotenv").config();
-const express = require("express");
-const app = express();
-const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
+const Employee = require('../models/Employes');
+const jwt = require('jsonwebtoken');
 
-const User = require("../models/Users");
-const validator = require("validator")
-const bcrypt = require("bcryptjs")
-const jwt = require("jsonwebtoken")
-
-const usersFinder = async (req, res) => {
-    const clientes = await User.find();
-    return res.json({ clientes });
-}
-const admin = async(req,res)=>{
-    const clientes = await User.find();
-
-    return res.json({ clientes });
-
-}
-const registerUsers = async (req, res) => {
-    const { name, email,telefone, password } = req.body;
-    if (name === "" || email === "" || telefone === "" || password === "") {
-        return res.status(400).json({
-            error: "Preencha todos os campos"
-        })
-    }
+// Listar funcionários
+const listEmployees = async (req, res) => {
     try {
-        const finderEmail = await User.findOne({ email: req.body.email })
-        if (finderEmail) {
-            return res.status(400).json({
-                error: "Email existente.Logue para acessar"
-            })
-        }
-        const adminDomain = 'adm.com'; // Substitua pelo domínio específico dos administradores
-        const isAdmin = email.split('@')[1] === adminDomain;
-        const user = new User({
-            name: name,
-            email: email,
-            telefone:telefone,
-            password: bcrypt.hashSync(password),
-            admin:isAdmin
-        })
-
-        const doc = await user.save()
-        res.status(201).json({
-            msg: "User criado"
-        })
+        const employees = await Employee.find();
+        return res.status(200).json({ employees });
     } catch (error) {
-        return res.status(500).json({
-            error: error.errmsg
-        })
-    }
-
-
-}
-const updateUser = async (req, res) => {
-    try {
-        const update = await User.findOneAndUpdate(
-            { _id: req.params.id },
-            {
-                name: req.body.name,
-                email: req.body.email,
-                telefone: req.body.telefone
-            },
-            { new: true } // Retorna o documento atualizado
-        );
-
-        // Se o usuário não for encontrado, retorna um erro 404
-        if (!update) {
-            return res.status(404).json({ error: "Usuário não encontrado!" });
-        }
-
-        // Retorna o usuário atualizado com sucesso
-        return res.status(200).json({ update });
-    } catch (error) {
-        // Captura qualquer erro e retorna erro 500
-        console.error("Erro ao atualizar usuário:", error);
-        return res.status(500).json({error});
+        return res.status(500).json({ error: 'Erro ao buscar funcionários' });
     }
 };
 
-
-const deleteUser = async (req, res) => {
-    const del = await User.findOneAndDelete({ _id: req.params.id });
-    if (!del) {
-        return res.status(404).json({ res: "Não foi o encontrado o Usuário." })
+// Cadastrar funcionário
+const registerEmployee = async (req, res) => {
+    const { name, email, telefone, password, position} = req.body;
+    
+    if (!name || !email || !telefone || !password || !position) {
+        return res.status(400).json({ error: 'Preencha todos os campos' });
     }
-    res.json({ msg: "User deletado" })
-}
-const loginUser = async (req, res) => {
-    const { email, password } = req.body;
 
     try {
-        const user = await User.findOne({ email: email });
-
-        if (!user) {
-            return res.status(401).json({ error: "Credenciais incorretas" });
+        const emailExists = await Employee.findOne({ email });
+        if (emailExists) {
+            return res.status(400).json({ error: 'Email já registrado' });
         }
 
-        if (!user.password) {
-            return res.status(401).json({ error: "Credenciais incorretas" });
+        const employee = new Employee({
+            name:name,
+            email:email,
+            telefone:telefone,
+            password: bcrypt.hashSync(password),
+            position:position,
+            
+        });
+
+        await employee.save();
+        return res.status(201).json({ message: 'Funcionário cadastrado com sucesso' });
+    } catch (error) {
+        return res.status(500).json({ error});
+    }
+};
+
+// Atualizar dados do funcionário
+const updateEmployee = async (req, res) => {
+    const { id } = req.params;
+    const {name,email, position, telefone } = req.body;
+
+    try {
+        const updatedEmployee = await Employee.findOneAndUpdate(
+            { _id: id },
+            {name,email, position, telefone },
+            { new: true }
+        );
+
+        if (!updatedEmployee) {
+            return res.status(404).json({ error: 'Funcionário não encontrado' });
         }
 
-        const passwordMatch = await bcrypt.compare(password, user.password);
+        return res.status(200).json({ message: 'Dados atualizados com sucesso', updatedEmployee });
+    } catch (error) {
+        return res.status(500).json({error});
+        
+    }
+};
+
+// Deletar funcionário
+const deleteEmployee = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const deletedEmployee = await Employee.findOneAndDelete({ _id: id });
+
+        if (!deletedEmployee) {
+            return res.status(404).json({ error: 'Funcionário não encontrado' });
+        }
+
+        return res.status(200).json({ message: 'Funcionário deletado com sucesso' });
+    } catch (error) {
+        return res.status(500).json({ error: 'Erro ao deletar funcionário' });
+    }
+};
+
+// Login de funcionário
+const loginEmployee = async (req, res) => {
+    const {email,password } = req.body;
+
+    try {
+        const employee = await Employee.findOne({ email });
+
+        if (!employee) {
+            return res.status(401).json({ error: 'Credenciais incorretas' });
+        }
+
+        const passwordMatch = await bcrypt.compare(password, employee.password);
 
         if (!passwordMatch) {
-            return res.status(401).json({ error: "Credenciais incorretas" });
+            return res.status(401).json({ error: 'Credenciais incorretas' });
         }
 
-        const isAdmin = (email === 'isaque@admin.com'); // Verifica se o email é o email de admin
         const token = jwt.sign(
-            { _id: user._id, email: user.email, isAdmin: isAdmin },
+            { _id: employee._id, },
             process.env.SECRET,
             { expiresIn: '2h' }
         );
 
-        res.header("authorization-token", token);
-        res.header("headerEmail",email)
-        return res.status(200).json({ success: "Usuário logado com sucesso!", token, tokenIsvalid: true,email:email });
+        res.header('authorization-token', token);
+        return res.status(200).json({ message: 'Funcionário logado com sucesso!', token });
     } catch (error) {
-        console.error("Erro ao fazer login:", error);
-        return res.status(500).json({ error: "Erro interno do servidor" });
+        return res.status(500).json({ error: 'Erro interno ao fazer login' });
     }
 };
 
-
-
-module.exports = { loginUser, registerUsers, updateUser, deleteUser, usersFinder,admin }
+module.exports = {
+    listEmployees,
+    registerEmployee,
+    updateEmployee,
+    deleteEmployee,
+    loginEmployee
+};
