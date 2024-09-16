@@ -1,17 +1,20 @@
 
 function register(event) {
-    const name = document.getElementById("nome").value;
-    const email = document.getElementById("email").value;
-    const telefone = document.getElementById("telefone").value;
-    const password = document.getElementById("password").value;
+    const name = document.getElementById('nome').value;
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    const telefone = document.getElementById('telefone').value;
+    const posicao = document.getElementById('posicao').value;
     if (!email ||!telefone ||  !password) {
         return alert("Preencha os campos!");
     }
     const datas = {
         name:name,
         email: email,
+        password: password,
         telefone:telefone,
-        password: password
+        posicao:posicao
+        
     }
     fetch('http://localhost:3001/register', {
         method: "POST",

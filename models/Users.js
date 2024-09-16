@@ -2,7 +2,7 @@ const mongoose = require("mongoose")
 const { Schema } = mongoose;
 const validator = require("validator");
 
-const UserSchema = new Schema({
+const ClienteSchema = new Schema({
     name: { 
         type: String, 
         required: true 
@@ -23,13 +23,15 @@ const UserSchema = new Schema({
         required: true,
         minlength: 6,
     },
-    assinatura:{
-        type:Boolean,
+    telefone:{
+        type:String,
         required:true,
-        default:false
+        validate: function(phoneNumber){
+            return validator.isMobilePhone(this.telefone)
+        }
     }
 });
 
-const User = mongoose.model('User', UserSchema);
+const Cliente = mongoose.model('Cliente', ClienteSchema);
 
-module.exports = User;
+module.exports = Cliente;

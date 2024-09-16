@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registrar </title>
-    <link rel="icon" type="image/jpg" href="baixados.jfif">
+    <title>Login</title>
+   
     <style>
         body {
             font-family: 'Georgia', serif;
@@ -13,7 +13,6 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            background-image: url('background.jpg');
             background-size: cover;
             background-attachment: fixed;
             display: flex;
@@ -21,7 +20,7 @@
             align-items: center;
             height: 100vh;
         }
-        .register-container {
+        .login-container {
             background-color: rgba(0, 0, 0, 0.8);
             padding: 20px;
             border-radius: 10px;
@@ -29,18 +28,18 @@
             text-align: center;
             border: 2px solid #ffcc00;
         }
-        .register-container img {
+        .login-container img {
             width: 150px;
             margin-bottom: 20px;
         }
-        .register-container input {
+        .login-container input {
             width: calc(100% - 20px);
             padding: 10px;
             margin: 10px 0;
             border: 1px solid #ccc;
             border-radius: 5px;
         }
-        .register-container button {
+        .login-container button {
             background-color: #007bff;
             color: #ffffff;
             padding: 10px 20px;
@@ -50,26 +49,23 @@
             font-size: 16px;
             margin-top: 10px;
         }
-        .register-container button:hover {
+        .login-container button:hover {
             background-color: #0056b3;
         }
     </style>
-     <script>
-        function redirectToProfiles() {
-            window.open('login.html', '_blank');
-        }
-    </script>
+    
 </head>
 <body>
-    <div class="register-container">
+    <div class="login-container">
         
-      
-            <input type="text" name="" id="nome" placeholder="Nome">
-            <input type="email" placeholder="Email" required id="email">
-            <input type="password" placeholder="Senha" id="password" required>
-            <input type="number" id="telefone" placeholder="Numero de Telefone">
-            <button onclick="register()">Registrar-se</button>
+        
+            <input type="email" id="Matricula" placeholder="Matricula" required>
+            <input type="password" id="password" placeholder="Senha" required>
+            <button onclick="login()">Conecta-se</button>
+        
     </div>
-    <script src="./scripts/register.js"></script>
+
+    
+    <script src="./scripts/script.js"></script>
 </body>
 </html>

@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const app = express();
 const mongoose = require('mongoose');
@@ -8,18 +9,18 @@ const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
 
 const usersFinder = async (req, res) => {
-    const users = await User.find();
-    return res.json({ users });
+    const clientes = await User.find();
+    return res.json({ clientes });
 }
 const admin = async(req,res)=>{
-    const users = await User.find();
+    const clientes = await User.find();
 
-    return res.json({ users });
+    return res.json({ clientes });
 
 }
 const registerUsers = async (req, res) => {
-    const { name, email, password } = req.body;
-    if (name === "" || email === "" || password === "") {
+    const { name, email,telefone, password } = req.body;
+    if (name === "" || email === "" || telefone === "" || password === "") {
         return res.status(400).json({
             error: "Preencha todos os campos"
         })
@@ -36,6 +37,7 @@ const registerUsers = async (req, res) => {
         const user = new User({
             name: name,
             email: email,
+            telefone:telefone,
             password: bcrypt.hashSync(password),
             admin:isAdmin
         })
