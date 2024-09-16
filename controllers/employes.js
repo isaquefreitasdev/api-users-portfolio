@@ -45,12 +45,12 @@ const registerEmployee = async (req, res) => {
 // Atualizar dados do funcionário
 const updateEmployee = async (req, res) => {
     const { id } = req.params;
-    const { position, telefone } = req.body;
+    const {name,email, position, telefone } = req.body;
 
     try {
         const updatedEmployee = await Employee.findOneAndUpdate(
             { _id: id },
-            { position, telefone },
+            {name,email, position, telefone },
             { new: true }
         );
 
@@ -60,7 +60,8 @@ const updateEmployee = async (req, res) => {
 
         return res.status(200).json({ message: 'Dados atualizados com sucesso', updatedEmployee });
     } catch (error) {
-        return res.status(500).json({ error: 'Erro ao atualizar dados' });
+        return res.status(500).json({error});
+        
     }
 };
 

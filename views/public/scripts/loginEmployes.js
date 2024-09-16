@@ -14,7 +14,7 @@ function login(event) {
     email: email,
     password: password
   }
-  fetch('http://localhost:3001/login', {
+  fetch('http://localhost:3001/employees/login', {
     method: "POST",
     headers: {
       'Content-Type': 'application/json'
@@ -29,7 +29,7 @@ function login(event) {
       localStorage.setItem("token", data.token)
       localStorage.setItem("email",data.email)
       setTimeout(()=>{
-        window.location.href = "client.html"
+        window.location.href = ""
 
       },3000)
     

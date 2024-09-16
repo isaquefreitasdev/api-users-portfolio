@@ -56,13 +56,13 @@
             display: flex;
             justify-content: center;
             flex-direction: column;
-
         }
 
         img {
             width: 100px;
         }
-        .content{
+
+        .content {
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -76,10 +76,8 @@
         <div class="content">
             <img src="./src/disco.png" alt="">
             <h2>Locadora Retrô</h2>
-            <p>Clientes</p>
-
+            <p>Funcionários</p>
         </div>
-
     </header>
     <table>
         <thead>
@@ -87,22 +85,15 @@
                 <th>Nome</th>
                 <th>Email</th>
                 <th>Telefone</th>
+                <th>Posição</th>
                 <th>Ações</th>
             </tr>
         </thead>
-        <tbody>
-            <tr>
-                <td><input type="text" value="Isaque" disabled></td>
-                <td>maria@email.com</td>
-                <td>(11) 99999-9999</td>
-                <td>
-                    <button class="update-btn">Atualizar</button>
-                    <button class="remove-btn">Remover</button>
-                </td>
-            </tr>
-            
+        <tbody id="employees-list">
+            <!-- Linhas de funcionários serão adicionadas aqui pelo JavaScript -->
         </tbody>
     </table>
+    <script src="./scripts/funcionario.js"></script>
 </body>
 
 </html>

@@ -55,20 +55,31 @@ const registerUsers = async (req, res) => {
 
 }
 const updateUser = async (req, res) => {
-    const update = await User.findOneAndUpdate(
-        { _id: req.params.id },
-        {
-            assinatura:req.body.assinatura
-        },
-        { new: true }
-    );
+    try {
+        const update = await User.findOneAndUpdate(
+            { _id: req.params.id },
+            {
+                name: req.body.name,
+                email: req.body.email,
+                telefone: req.body.telefone
+            },
+            { new: true } // Retorna o documento atualizado
+        );
 
-    if (!update) {
-        return res.status(201).json({ update });
+        // Se o usuário não for encontrado, retorna um erro 404
+        if (!update) {
+            return res.status(404).json({ error: "Usuário não encontrado!" });
+        }
+
+        // Retorna o usuário atualizado com sucesso
+        return res.status(200).json({ update });
+    } catch (error) {
+        // Captura qualquer erro e retorna erro 500
+        console.error("Erro ao atualizar usuário:", error);
+        return res.status(500).json({error});
     }
-    return res.status(404).json({ error: "Usuário não encontrado!!" });
+};
 
-}
 
 const deleteUser = async (req, res) => {
     const del = await User.findOneAndDelete({ _id: req.params.id });

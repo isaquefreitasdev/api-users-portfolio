@@ -26,9 +26,7 @@ const ClienteSchema = new Schema({
     telefone:{
         type:String,
         required:true,
-        validate: function(phoneNumber){
-            return validator.isMobilePhone(this.telefone)
-        }
+        
     }
 });
 

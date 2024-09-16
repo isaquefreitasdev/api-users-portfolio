@@ -4,8 +4,8 @@ function register(event) {
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
     const telefone = document.getElementById('telefone').value;
-    const posicao = document.getElementById('posicao').value;
-    if (!email ||!telefone ||  !password) {
+    const position = document.getElementById('posicao').value;
+    if (!name ||!email ||!password ||!telefone || !posicao) {
         return alert("Preencha os campos!");
     }
     const datas = {
@@ -13,10 +13,10 @@ function register(event) {
         email: email,
         password: password,
         telefone:telefone,
-        posicao:posicao
+        position:position
         
     }
-    fetch('http://localhost:3001/register', {
+    fetch('http://localhost:3001/employees/register', {
         method: "POST",
         headers: {
             'Content-Type': 'application/json'
