@@ -1,15 +1,24 @@
 {
-    "version":2,
-    "builds":[
-        {
-            "src":"./index.js",
-            "use":"@vercel/node"
-        }
+    "version": 2,
+    "builds": [
+      {
+        "src": "index.js",  // Seu back-end
+        "use": "@vercel/node"
+      },
+      {
+        "src": "views/package.json",  // Seu front-end (React, Vue, ou outro)
+        "use": "@vercel/static-build"
+      }
     ],
-    "routes":[
-        {
-            "src":"/(.*)",
-            "dest":"/"
-        }
+    "routes": [
+      {
+        "src": "/api/(.*)",  // Rotas para o back-end (exemplo: /api/users)
+        "dest": "/index.js"
+      },
+      {
+        "src": "/(.*)",  // Todas as outras rotas são para o front-end
+        "dest": "/views/$1"
+      }
     ]
-}
+  }
+  
