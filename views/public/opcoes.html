@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administração</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            background-color: #000;
+            color: #fff;
+            padding: 20px;
+        }
+
+        header img {
+            width: 100px;
+        }
+
+        header h2 {
+            margin: 10px 0;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+        }
+
+        .container h3 {
+            margin-top: 0;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .container button {
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            color: #fff;
+            background-color: #007bff;
+            border-radius: 4px;
+            font-size: 16px;
+            margin: 10px;
+        }
+
+        .container button:hover {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <img src="./src/disco.png" alt="Locadora Retrô">
+        <h2>Locadora Retrô</h2>
+        <p>Administração</p>
+    </header>
+
+    <div class="container">
+        <h3>Opções de Administração</h3>
+        <button onclick="window.location.href='cadastroFilme.html'">Cadastrar Filmes</button>
+        <button onclick="window.location.href='client.html'">Visualizar Clientes</button>
+        <button onclick="window.location.href='seleçãodedvdcomprar.html'">Ver Filmes</button>
+    </div>
+</body>
+
+</html>

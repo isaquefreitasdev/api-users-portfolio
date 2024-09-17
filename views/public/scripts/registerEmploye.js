@@ -19,11 +19,17 @@ function register(event) {
     fetch('http://localhost:3001/employees/register', {
         method: "POST",
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'headerEmail': email
+            
 
         },
         body: JSON.stringify(datas)
     }).then(response => response.json()).then(data => {
+        if (data.msg === "Acesso negado,Somente Admins!!!") {
+            alert("Acesso negado!")
+            window.location.href = "index.html"
+        }
         if(data.error === "Email existente.Logue para acessar"){
             alert(data.error)
             setTimeout(()=>{
@@ -32,7 +38,7 @@ function register(event) {
         }
         setTimeout(()=>{
             console.log(data)
-            window.location.href ="login.html"
+            window.location.href ="loginFuncionarios.html"
         },3000)
         
 

@@ -29,7 +29,7 @@ function login(event) {
       localStorage.setItem("token", data.token)
       localStorage.setItem("email",data.email)
       setTimeout(()=>{
-        window.location.href = ""
+        window.location.href = "opcoes.html"
 
       },3000)
     

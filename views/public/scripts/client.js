@@ -19,8 +19,8 @@ function loadEmployees() {
             return;
         }
 
-        const clients = data.clientes;
-        console.log(data)
+        const clients = data.users;
+        console.log(clients)
         const clientList = document.getElementById('clients-list');
         clientList.innerHTML = ''; // Limpa o conteúdo existente
 

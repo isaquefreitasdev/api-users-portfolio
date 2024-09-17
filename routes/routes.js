@@ -5,13 +5,13 @@ const router = express.Router();
 const auth = require("../controllers/auth")
 const employee = require("../controllers/employes")
 const movies = require("../controllers/movies")
-router.get("/users",auth.verifyLogin,auth.verifyToken,controllers.listClientes);
+router.get("/users",controllers.listClientes);
 router.post("/register",controllers.registerClient);
 router.post("/login",controllers.loginClient)
 router.put("/updateUsers/:id",controllers.updateUser)
 router.delete("/delete/:id",controllers.deleteClient)
 router.get('/employees', employee.listEmployees);
-router.post('/employees/register', employee.registerEmployee);
+router.post('/employees/register',auth.verifyADMIN, employee.registerEmployee);
 router.put('/employees/update/:id', employee.updateEmployee);
 router.delete('/employees/delete/:id', employee.deleteEmployee);
 router.post('/employees/login', employee.loginEmployee);
