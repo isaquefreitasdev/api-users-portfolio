@@ -17,7 +17,7 @@
       },
       {
         "src": "/(.*)",
-        "dest": "/views/$1"
+        "dest": "/views/public/$1"
       }
     ]
   }
