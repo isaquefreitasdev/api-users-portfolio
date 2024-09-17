@@ -11,6 +11,9 @@ const MovieSchema = new Schema({
     description:{
         required:true,
         type:String
+    },
+    src:{
+        type:String
     }
 })
 const Movie = mongoose.model("Movies",MovieSchema)
