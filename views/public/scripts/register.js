@@ -29,7 +29,7 @@ function register(event) {
         }
         setTimeout(()=>{
             console.log(data)
-            window.location.href ="login.html"
+            window.location.href ="seleçãodedvdcomprar.html"
         },3000)
         
 

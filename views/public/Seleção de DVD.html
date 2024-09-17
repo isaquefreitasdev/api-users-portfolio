@@ -74,8 +74,9 @@
         // Função para buscar e listar filmes da API
         async function fetchMovies() {
             try {
-                const response = await fetch('http://localhost:3001/movies'); // Substitua 'URL_DA_SUA_API' pela URL da sua API
-                const movies = await response.json();
+                const response = await fetch('http://localhost:3001/movies'); // Substitua com o URL correto da sua API
+                const data = await response.json();
+                const movies = data.movies;
 
                 const container = document.getElementById('movies-container');
                 container.innerHTML = ''; // Limpa o contêiner antes de adicionar novos filmes
@@ -86,15 +87,38 @@
                     movieElement.innerHTML = `
                         <img src="${movie.src}" alt="${movie.title}">
                         <div class="movie-title">${movie.title}</div>
-                        <div class="info">${movie.description} ‧</div>
-                        <div class="button">
-                            <a href="$" class="aluga-btn">Comprar</a>
-                        </div>
+                        <div class="info">${movie.description}</div>
+                        
                     `;
                     container.appendChild(movieElement);
                 });
             } catch (error) {
                 console.error('Erro ao buscar filmes:', error);
+            }
+        }
+
+        // Função para atualizar o filme
+        async function updateMovie(movieId) {
+            // Aqui você pode exibir um formulário ou dialog para o usuário atualizar o filme
+            // Implementar a lógica de atualização
+            alert(`Funcionalidade de atualização para o filme com ID: ${movieId} ainda não implementada.`);
+        }
+
+        // Função para remover o filme
+        async function removeMovie(movieId) {
+            try {
+                const response = await fetch(`http://localhost:5000/movies/${movieId}`, {
+                    method: 'DELETE'
+                });
+                const result = await response.json();
+                if (response.ok) {
+                    alert(result.message);
+                    fetchMovies(); // Atualiza a lista de filmes
+                } else {
+                    alert(result.error);
+                }
+            } catch (error) {
+                console.error('Erro ao remover filme:', error);
             }
         }
 

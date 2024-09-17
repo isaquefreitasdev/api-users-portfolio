@@ -11,7 +11,7 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-image: url('src/images\ \(2\).jpg');
+            background-image: url('src/images\(2\).jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -48,7 +48,7 @@
         .button {
             margin-top: 10px;
         }
-        .aluga-btn, .update-btn, .remove-btn {
+        .aluga-btn {
             padding: 10px 20px;
             background-color: #333;
             color: white;
@@ -58,7 +58,7 @@
             transition: background-color 0.3s;
             margin: 5px;
         }
-        .aluga-btn:hover, .update-btn:hover, .remove-btn:hover {
+        .aluga-btn:hover {
             background-color: #555;
         }
     </style>
@@ -66,69 +66,44 @@
 
 <body>
 
-    <div class="container">
-        <!-- Movie 1 -->
-        <div class="movie" id="movie1">
-            <img src="src/A vida é bela.jpg" alt="A vida é bela">
-            <div class="movie-title">A Vida é Bela</div>
-            <div class="info">1997 ‧ Guerra ‧ 1h 56m de duração.</div>
-            <div class="button">
-                <a href="Compra concluídafilmes.html" class="button">
-                    <button class="aluga-btn">Comprar</button>
-                </a>
-            </div>
-        </div>
-
-        <!-- Movie 2 -->
-        <div class="movie" id="movie2">
-            <img src="src/Star Wars.png" alt="Star Wars: Episódio I">
-            <div class="movie-title">Star Wars: Episódio I</div>
-            <div class="info">1999 ‧ Ficção científica ‧ 2h 16m de duração.</div>
-            <div class="button">
-                <a href="Compra concluídafilmes.html" class="button">
-                    <button class="aluga-btn">Comprar</button>
-                </a>
-            </div>
-        </div>
-
-        <!-- Movie 3 -->
-        <div class="movie" id="movie3">
-            <img src="src/Warcraft-III-Reforged-pc-free-download.jpg" alt="O pianista">
-            <div class="movie-title">Warcraft 3</div>
-            <div class="info">2020 ‧ RTS ‧ 20h de duração.</div>
-            <div class="button">
-                <a href="compra concluídajogos.html" class="button">
-                    <button class="aluga-btn">Comprar</button>
-                </a>
-            </div>
-        </div>
-
-        <!-- Movie 4 -->
-        <div class="movie" id="movie4">
-            <img src="src/Disco Elysium.png" alt="Disco Elysium">
-            <div class="movie-title">Disco Elysium</div>
-            <div class="info">2021 ‧ Investigação ‧ 20h de duração</div>
-            <div class="button">
-                <a href="compra concluídajogos.html" class="button">
-                    <button class="aluga-btn">Comprar</button>
-                </a>
-            </div>
-        </div> 
+    <div class="container" id="movie-container">
+        <!-- Os filmes serão carregados aqui -->
     </div>
 
     <script>
-        // Função para simular a atualização do filme
-        function updateMovie(movieId) {
-            const movieTitle = document.getElementById(movieId).querySelector('.movie-title').innerText;
-            alert('O filme "' + movieTitle + '" foi atualizado com sucesso!');
+        // Função para carregar filmes da API
+        async function fetchMovies() {
+            try {
+                const response = await fetch('http://localhost:3001/movies'); // Substitua com o URL correto da sua API
+                const data = await response.json();
+                const movies = data.movies;
+
+                const container = document.getElementById('movie-container');
+                container.innerHTML = ''; // Limpa o contêiner antes de adicionar novos filmes
+
+                movies.forEach(movie => {
+                    const movieElement = document.createElement('div');
+                    movieElement.classList.add('movie');
+                    movieElement.id = movie._id; // Usa o ID real do filme
+                    movieElement.innerHTML = `
+                        <img src="${movie.src}" alt="${movie.title}">
+                        <div class="movie-title">${movie.title}</div>
+                        <div class="info">${movie.description}</div>
+                        <div class="button">
+                            <a href="Compra concluídafilmes.html" class="button">
+                                <button class="aluga-btn">Comprar</button>
+                            </a>
+                        </div>
+                    `;
+                    container.appendChild(movieElement);
+                });
+            } catch (error) {
+                console.error('Erro ao buscar filmes:', error);
+            }
         }
 
-        // Função para remover o filme da lista
-        function removeMovie(movieId) {
-            const movieElement = document.getElementById(movieId);
-            movieElement.remove(); // Remove o elemento da página
-            alert('O filme foi removido com sucesso!');
-        }
+        // Carrega os filmes quando a página é carregada
+        window.onload = fetchMovies;
     </script>
 
 </body>

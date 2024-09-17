@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Filmes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            background-color: #000;
+            color: #fff;
+            padding: 20px;
+        }
+
+        header img {
+            width: 100px;
+        }
+
+        header h2 {
+            margin: 10px 0;
+        }
+
+        .form-container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-container h3 {
+            margin-top: 0;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .form-container label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .form-container input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .form-container button {
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            color: #fff;
+            background-color: #007bff;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .form-container button:hover {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <img src="./src/disco.png" alt="Locadora Retrô">
+        <h2>Locadora Retrô</h2>
+        <p>Cadastro de Filmes</p>
+    </header>
+    
+    <div class="form-container">
+        <h3>Adicionar Novo Filme</h3>
+        <label for="title">Título:</label>
+        <input type="text" id="title" placeholder="Título do Filme" required>
+        
+        <label for="description">Descrição:</label>
+        <input type="text" id="description" placeholder="Descrição do Filme" required>
+        
+        <label for="image-url">URL da Imagem:</label>
+        <input type="text" id="image-url" placeholder="URL da Imagem" required>
+        
+        <button type="button" onclick="submitForm()">Cadastrar Filme</button>
+    </div>
+
+    <script>
+        async function submitForm() {
+            const title = document.getElementById('title').value;
+            const description = document.getElementById('description').value;
+            const src = document.getElementById('image-url').value;
+
+            if (title === '' || description === '' || src === '') {
+                alert('Por favor, preencha todos os campos!');
+                return;
+            }
+
+            const movieData = {
+                title: title,
+                description: description,
+                src: src
+            };
+
+            try {
+                const response = await fetch("http://localhost:3001/registerMovies", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(movieData)
+                });
+
+                if (!response.ok) {
+                    throw new Error('Erro ao cadastrar o filme!');
+                }
+
+                alert('Filme cadastrado com sucesso!');
+                // Limpa os campos do formulário
+                document.getElementById('title').value = '';
+                document.getElementById('description').value = '';
+                document.getElementById('image-url').value = '';
+
+            } catch (error) {
+                alert(error.message);
+            }
+        }
+    </script>
+</body>
+
+</html>
