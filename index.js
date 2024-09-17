@@ -27,7 +27,7 @@ app.use("/api", routes);
 
 // Servir o arquivo HTML principal para todas as outras rotas
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'public', 'index.html'));
+  res.sendFile(path.join(__dirname, 'views', 'public'));
 });
 
 // Exporta o app para a Vercel tratar
