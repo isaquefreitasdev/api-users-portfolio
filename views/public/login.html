@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-   
     <style>
         body {
             font-family: 'Georgia', serif;
-            color: #f3f3f3;
-            background-color: #1a1a1a;
+            color: white;
+            background-color: #f3f3f3;
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -20,6 +20,7 @@
             align-items: center;
             height: 100vh;
         }
+
         .login-container {
             background-color: rgba(0, 0, 0, 0.8);
             padding: 20px;
@@ -28,10 +29,12 @@
             text-align: center;
             border: 2px solid #ffcc00;
         }
+
         .login-container img {
             width: 150px;
             margin-bottom: 20px;
         }
+
         .login-container input {
             width: calc(100% - 20px);
             padding: 10px;
@@ -39,6 +42,7 @@
             border: 1px solid #ccc;
             border-radius: 5px;
         }
+
         .login-container button {
             background-color: #007bff;
             color: #ffffff;
@@ -49,23 +53,26 @@
             font-size: 16px;
             margin-top: 10px;
         }
+
         .login-container button:hover {
             background-color: #0056b3;
         }
     </style>
-    
+
 </head>
+
 <body>
     <div class="login-container">
-        
-        
-            <input type="email" id="email" placeholder="Email" required>
-            <input type="password" id="password" placeholder="Senha" required>
-            <button onclick="login()">Conecta-se</button>
-        
+        <h2>Locadora Retrô</h2>
+        <img src="./src/disco.png" alt="">
+        <input type="email" id="email" placeholder="Email" required>
+        <input type="password" id="password" placeholder="Senha" required>
+        <a href="Seleção de DVD ADMIN.html"> <button onclick="login()">Conecta-se</button> </a>
+
     </div>
 
-    
+
     <script src="./scripts/script.js"></script>
 </body>
+
 </html>
