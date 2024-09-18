@@ -22,14 +22,14 @@ function register(event) {
         body: JSON.stringify(datas)
     }).then(response => response.json()).then(data => {
         if(data.error){
-            alert("Houve erro,os dados já podem existirem")
+            console.log(data.error)
             setTimeout(()=>{
                 window.location.href ="login.html"
-            },2000)
+            },3000)
         }
     
             console.log(data)
-            // window.location.href ="selecaodevcomprar.html"
+            window.location.href ="selecaodevcomprar.html"
         
         
 
