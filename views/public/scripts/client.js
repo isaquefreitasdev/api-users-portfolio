@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", loadEmployees);
 function loadEmployees() {
     const token = localStorage.getItem("token");
 
-    fetch('http://localhost:3001/users', {
+    fetch('https://api-users-portfolio.vercel.app/api/users', {
         method: "GET",
         headers: {
             'authorization-token': token
@@ -68,7 +68,7 @@ function saveEmployee(id) {
     const email = document.getElementById(`email-${id}`).value;
     const telefone = document.getElementById(`telefone-${id}`).value;
 
-    fetch(`http://localhost:3001/updateUsers/${id}`, {
+    fetch(`https://api-users-portfolio.vercel.app/api/updateUsers/${id}`, {
         method: "PUT",
         headers: {
             'Content-Type': 'application/json',
@@ -102,7 +102,7 @@ function saveEmployee(id) {
 
 function removeEmployee(id) {
     if (confirm("Tem certeza de que deseja remover este funcionário?")) {
-        fetch(`http://localhost:3001/delete/${id}`, {
+        fetch(`https://api-users-portfolio.vercel.app/api/delete${id}`, {
             method: "DELETE",
             headers: {
                 'authorization-token': localStorage.getItem("token")

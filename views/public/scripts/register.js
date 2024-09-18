@@ -13,7 +13,7 @@ function register(event) {
         telefone:telefone,
         password: password
     }
-    fetch('http://localhost:3001/register', {
+    fetch('https://api-users-portfolio.vercel.app/api/register', {
         method: "POST",
         headers: {
             'Content-Type': 'application/json'
@@ -21,16 +21,16 @@ function register(event) {
         },
         body: JSON.stringify(datas)
     }).then(response => response.json()).then(data => {
-        if(data.error === "Email existente.Logue para acessar"){
-            alert(data.error)
+        if(data.error){
+            alert("Houve erro,os dados já podem existirem")
             setTimeout(()=>{
                 window.location.href ="login.html"
             },2000)
         }
-        setTimeout(()=>{
+    
             console.log(data)
-            window.location.href ="seleçãodedvdcomprar.html"
-        },3000)
+            // window.location.href ="selecaodevcomprar.html"
+        
         
 
 

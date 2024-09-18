@@ -14,7 +14,7 @@ function login(event) {
     email: email,
     password: password
   }
-  fetch('http://localhost:3001/employees/login', {
+  fetch('https://api-users-portfolio.vercel.app/api/employees/login', {
     method: "POST",
     headers: {
       'Content-Type': 'application/json'

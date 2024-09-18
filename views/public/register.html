@@ -1,13 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,6 +21,7 @@
             align-items: center;
             height: 100vh;
         }
+
         .register-container {
             background-color: rgba(0, 0, 0, 0.8);
             padding: 20px;
@@ -36,10 +30,12 @@
             text-align: center;
             border: 2px solid #ffcc00;
         }
+
         .register-container img {
             width: 150px;
             margin-bottom: 20px;
         }
+
         .register-container input {
             width: calc(100% - 20px);
             padding: 10px;
@@ -47,6 +43,7 @@
             border: 1px solid #ccc;
             border-radius: 5px;
         }
+
         .register-container button {
             background-color: #007bff;
             color: #ffffff;
@@ -57,29 +54,29 @@
             font-size: 16px;
             margin-top: 10px;
         }
+
         .register-container button:hover {
             background-color: #0056b3;
         }
     </style>
-     <script>
+    <script>
         function redirectToProfiles() {
             window.open('login.html', '_blank');
         }
     </script>
 </head>
+
 <body>
     <div class="register-container">
         <h2>Locadora Retrô</h2>
-        <img src="./src/disco.png" alt="">
-      
-            <input type="text" name="" id="nome" placeholder="Nome">
-            <input type="email" placeholder="Email" required id="email">
-            <input type="password" placeholder="Senha" id="password" required>
-            <input type="number" placeholder="Numero" id="telefone" required>
-            <button onclick="register()">Registrar-se <a href="login.html"> </button> <button> logar</button> </a>
+        <img src="../public/src/disco.png" alt="">
+
+        <input type="text" name="" id="nome" placeholder="Nome">
+        <input type="email" placeholder="Email" required id="email">
+        <input type="password" placeholder="Senha" id="password" required>
+        <input type="number" placeholder="Numero" id="telefone" required>
+        <button onclick="register()">Registrar-se <a href="login.html"> </button> <button> logar</button> </a>
     </div>
     <script src="./scripts/register.js"></script>
-</body>
-</html>
-</body>
+
 </html>

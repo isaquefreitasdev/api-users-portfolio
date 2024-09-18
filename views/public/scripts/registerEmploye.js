@@ -16,7 +16,7 @@ function register(event) {
         position:position
         
     }
-    fetch('http://localhost:3001/employees/register', {
+    fetch('https://api-users-portfolio.vercel.app/api/employees/register', {
         method: "POST",
         headers: {
             'Content-Type': 'application/json',

@@ -5,6 +5,7 @@ const listMovies = async (req, res) => {
     try {
         const movies = await Movie.find();
         return res.status(200).json({ movies });
+        res.sendFile(path.join(__dirname, 'views', 'public', 'seleçãodedvdcomprar.html'));
     } catch (error) {
         return res.status(500).json({ error: 'Erro ao buscar filmes' });
     }
